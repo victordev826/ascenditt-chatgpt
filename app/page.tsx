@@ -1,4 +1,3 @@
-import { MyAssistant } from "@/components/MyAssistant";
 import Image from "next/image";
 import Link from "next/link";
 

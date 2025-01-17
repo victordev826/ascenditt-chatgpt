@@ -18,12 +18,6 @@ export default function RootLayout({
       <MyRuntimeProvider>
         <html lang="en" className="dark">
           <body className='bg-black'>
-            {/* <SignedOut>
-            <SignInButton />
-          </SignedOut> */}
-            {/* <SignedIn>
-            <UserButton />
-          </SignedIn> */}
             {children}
           </body>
         </html>

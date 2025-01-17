@@ -80,14 +80,18 @@ async function generateAndExecuteFunction(prompt: string, retryCount = 0) {
       throw new Error("No result found after executing the function");
     }
     return result;
-  } catch (error: any) {
-    console.error("Error:", error);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error("Error:", error.message);
+    } else {
+      console.error("Unexpected error:", error);
+    }
 
     // Only retry up to 10 times
     if (retryCount < 10) {
       console.log(`Retrying... Attempt ${retryCount + 1}`);
       return generateAndExecuteFunction(
-        `${prompt}\n\nThe previous attempt failed with error: ${error.message}. Please fix the code and try again.`,
+        `${prompt}\n\nThe previous attempt failed with error: ${error instanceof Error ? error.message : 'Unknown error'}. Please fix the code and try again.`,
         retryCount + 1
       );
     }
@@ -104,7 +108,11 @@ function extractFunctionCode(response: string) {
   return match ? match[1] : null;
 }
 
-async function getDetailedResponseFromResult(question: string, result: any) {
+interface ResultType {
+  result: string | Array<any> | object | number | boolean | null;
+}
+
+async function getDetailedResponseFromResult(question: string, result: ResultType) {
   const prompt = `Question: ${question}
   
   Answer: ${JSON.stringify(result)}
@@ -158,7 +166,12 @@ async function executeGeneratedFunction(functionCode: string) {
     console.log("data", data);
 
     return data;
-  } catch (error) {
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error("Error:", error.message);
+    } else {
+      console.error("Unexpected error:", error);
+    }
     throw error; // Let the parent function handle the retry
   }
 }
