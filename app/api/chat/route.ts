@@ -107,12 +107,8 @@ function extractFunctionCode(response: string) {
   const match = response.match(regex);
   return match ? match[1] : null;
 }
-
-interface ResultType {
-  result: string | Array<object> | object | number | boolean | null;
-}
-
-async function getDetailedResponseFromResult(question: string, result: ResultType) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function getDetailedResponseFromResult(question: string, result: any) {
   const prompt = `Question: ${question}
   
   Answer: ${JSON.stringify(result)}
