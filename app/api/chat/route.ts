@@ -109,7 +109,7 @@ function extractFunctionCode(response: string) {
 }
 
 interface ResultType {
-  result: string | Array<any> | object | number | boolean | null;
+  result: string | Array<object> | object | number | boolean | null;
 }
 
 async function getDetailedResponseFromResult(question: string, result: ResultType) {

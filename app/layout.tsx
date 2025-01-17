@@ -1,9 +1,5 @@
 import {
   ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton
 } from '@clerk/nextjs'
 import { MyRuntimeProvider } from "@/components/runtime/MyRuntimeProvider";
 import './globals.css'
